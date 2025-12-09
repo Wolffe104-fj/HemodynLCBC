@@ -1,0 +1,76 @@
+### >>> PYTHON <<< ###
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Кэш и скомпилированные файлы Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.py.cover
+*.so
+.python-version
+
+# Пакеты и дистрибутивы (папки сборки, яйца, wheel'ы)
+build/
+dist/
+*.egg-info/
+*.egg
+.installed.cfg
+parts/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+
+# Кэш инструментов и логи установки
+.cache
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+pip-log.txt
+pip-delete-this-directory.txt
+.spyderproject
+.spyproject
+
+### >>> СЛУЖЕБНЫЕ ФАЙЛЫ PYCHARM <<< ###
+.idea/
+*.iml
+*.ipr
+.ropeproject
+
+### >>> ФАЙЛЫ ПРОЕКТОВ И БАЗ ДАННЫХ <<< ###
+*.sqlite
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+
+# Файлы журналов и локальных настроек
+*.log
+local_settings.py
+
+# Инстанс Flask
+instance/
+.webassets-cache
+
+### >>> КОНФИДЕНЦИАЛЬНОСТЬ <<< ###
+# Файлы с паролями, ключами и переменными окружения
+.env
+.envrc
+.secrets
+secrets.json
+config_local.yaml
+.pypirc
+.streamlit/secrets.toml
+
+### >>> СИСТЕМНЫЕ ФАЙЛЫ <<< ###
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+*.stackdump
