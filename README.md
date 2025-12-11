@@ -23,8 +23,6 @@ The project was inspired by a real-life task for medical engineers that was pres
 
   <br>
   <br>
-  <br>
-  <br>
   
   Основное, с чем пришлось столкнуться - это отсутсвие материалов, которые нужны для решения задачи. 
   Поэтому я сразу решил посмотреть её решение и пойти от обратного. Так я узнал примерные параметры модели:
@@ -91,4 +89,46 @@ The project was inspired by a real-life task for medical engineers that was pres
 
 </details>
 
-## Requirements
+## Quick Start & Installation
+### 📋 Requirements
+All dependencies are pinned in requirements.txt:
+| Package         | Version     |
+| --------------- | ----------- |
+| numpy           | 2.3.5       |
+| matplotlib      | 3.10.7      |
+| scipy           | 1.16.3      |
+| contourpy       | 1.3.3       |
+| cycler          | 0.12.1      |
+| fonttools       | 4.61.0      |
+| kiwisolver      | 1.4.9       |
+| packaging       | 25.0        |
+| pillow          | 12.0.0      |
+| pyparsing       | 3.2.5       |
+| python-dateutil | 2.9.0.post0 |
+| six             | 1.17.0      |
+
+### 🛠️ Installation
+1. Clone repository (All OS)
+```
+git clone https://github.com/Wolffe104-fj/HemodynLCBC.git
+cd HemodynLCBC
+```
+
+2. Create & activate virtual environment
+```
+python -m venv venv
+```
+
+| Windows               | Linux/macOS              |
+| --------------------- | ------------------------ |
+| venv\\Scripts\\activate | source venv/bin/activate |
+
+3. Install dependencies (All OS)
+```
+pip install -r requirements.txt
+```
+
+4. Run simulation (All OS)
+```
+python main.py
+```
