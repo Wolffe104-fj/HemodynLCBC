@@ -157,73 +157,76 @@ def main():
     pulse_pressure = systolic_pressure - diastolic_pressure
 
     print("=" * 50)
-    print("РЕЗУЛЬТАТЫ МОДЕЛИРОВАНИЯ")
+    print("MODELING RESULTS")
     print("=" * 50)
-    print(f"Систолическое давление в аорте: {systolic_pressure:.1f} мм рт.ст.")
-    print(f"Диастолическое давление в аорте: {diastolic_pressure:.1f} мм рт.ст.")
-    print(f"Пульсовое давление: {pulse_pressure:.1f} мм рт.ст.")
-    print(f"Среднее артериальное давление: {np.mean(aortic_pressure):.1f} мм рт.ст.")
+    print(f"Aortic systolic pressure: {systolic_pressure:.1f} mmHg")
+    print(f"Aortic diastolic pressure: {diastolic_pressure:.1f} mmHg")
+    print(f"Pulse pressure: {pulse_pressure:.1f} mmHg")
+    print(f"Mean arterial pressure: {np.mean(aortic_pressure):1f} mmHg")
     print("=" * 50)
 
     #=============== Визуализация ===============
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-
     #Временная ось для последних двух циклов
     time_last_cycles = np.arange(-2 * points_per_cycle, 0) * dt
 
     #Давление в аорте (последние 2 цикла)
-    ax1 = axes[0, 0]
+    plt.figure(figsize=(10, 6))
     aortic_last_2cycles = X[3, -2 * points_per_cycle:]
-    ax1.plot(time_last_cycles, aortic_last_2cycles, 'b-', linewidth=2)
-    ax1.axhline(y=systolic_pressure, color='r', linestyle='--', alpha=0.7,
-                label=f'САД: {systolic_pressure:.1f}')
-    ax1.axhline(y=diastolic_pressure, color='g', linestyle='--', alpha=0.7,
-                label=f'ДАД: {diastolic_pressure:.1f}')
-    ax1.set_xlabel('Время (с)')
-    ax1.set_ylabel('Давление (мм рт.ст.)')
-    ax1.set_title('Давление в аорте (последние 2 цикла)')
-    ax1.grid(True, alpha=0.3)
-    ax1.legend()
-    ax1.fill_between(time_last_cycles, diastolic_pressure, aortic_last_2cycles,
+    plt.plot(time_last_cycles, aortic_last_2cycles, 'b-', linewidth=2)
+    plt.axhline(y=systolic_pressure, color='r', linestyle='--', alpha=0.7,
+                label=f'SYS: {systolic_pressure:.1f}')
+    plt.axhline(y=diastolic_pressure, color='g', linestyle='--', alpha=0.7,
+                label=f'DIA: {diastolic_pressure:.1f}')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Pressure (mmHg)')
+    plt.title('Aortic Pressure (last 2 cycles)')
+    plt.grid(True, alpha=0.3)
+    plt.legend(loc='upper right', framealpha=0.9)
+    plt.fill_between(time_last_cycles, diastolic_pressure, aortic_last_2cycles,
                      alpha=0.2, color='blue')
+    plt.tight_layout()
+    plt.show()
 
     #Функция упругости желудочка
-    ax2 = axes[0, 1]
+    plt.figure(figsize=(10, 6))
     time_full = np.arange(total_points) * dt
-    ax2.plot(time_full[:points_per_cycle * 2], U[:points_per_cycle * 2], 'r-', linewidth=2)
-    ax2.set_xlabel('Время (с)')
-    ax2.set_ylabel('Упругость')
-    ax2.set_title('Функция упругости левого желудочка')
-    ax2.grid(True, alpha=0.3)
-    ax2.fill_between(time_full[:points_per_cycle * 2], Umin, U[:points_per_cycle * 2],
+    plt.plot(time_full[:points_per_cycle * 2], U[:points_per_cycle * 2], 'r-', linewidth=2)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Elasticity')
+    plt.title('Left Ventricle Elasticity Function')
+    plt.grid(True, alpha=0.3)
+    plt.fill_between(time_full[:points_per_cycle * 2], Umin, U[:points_per_cycle * 2],
                      alpha=0.2, color='red')
+    plt.tight_layout()
+    plt.show()
 
     #Все давления в последнем цикле
-    ax3 = axes[1, 0]
+    plt.figure(figsize=(10, 6))
     time_last_cycle = np.arange(points_per_cycle) * dt
-    labels = ['Желудочек', 'Предсердие', 'Артерии', 'Аорта']
+    labels = ['Ventricle', 'Atrium', 'Arteries', 'Aorta']
     colors = ['red', 'orange', 'green', 'blue']
 
     for idx in range(4):
-        ax3.plot(time_last_cycle, X[idx, last_cycle_start:last_cycle_end],
+        plt.plot(time_last_cycle, X[idx, last_cycle_start:last_cycle_end],
                  label=labels[idx], color=colors[idx], linewidth=2)
 
-    ax3.set_xlabel('Время (с)')
-    ax3.set_ylabel('Давление (мм рт.ст.)')
-    ax3.set_title('Давления в различных отделах (последний цикл)')
-    ax3.grid(True, alpha=0.3)
-    ax3.legend()
+    plt.xlabel('Time (s)')
+    plt.ylabel('Pressure (mmHg)')
+    plt.title('Pressures in Various Compartments (last cycle)')
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
 
     #Поток крови
-    ax4 = axes[1, 1]
+    plt.figure(figsize=(10, 6))
     flow = X[4, last_cycle_start:last_cycle_end]
-    ax4.plot(time_last_cycle, flow, 'purple', linewidth=2)
-    ax4.set_xlabel('Время (с)')
-    ax4.set_ylabel('Поток (мл/с)')
-    ax4.set_title('Поток крови через аортальный клапан')
-    ax4.grid(True, alpha=0.3)
-    ax4.fill_between(time_last_cycle, 0, flow, alpha=0.2, color='purple')
-
+    plt.plot(time_last_cycle, flow, 'purple', linewidth=2)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Flow (ml/s)')
+    plt.title('Blood Flow Through Aortic Valve')
+    plt.grid(True, alpha=0.3)
+    plt.fill_between(time_last_cycle, 0, flow, alpha=0.2, color='purple')
     plt.tight_layout()
     plt.show()
 
