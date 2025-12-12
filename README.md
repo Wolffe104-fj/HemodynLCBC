@@ -8,6 +8,8 @@ The project was inspired by a real-life task for medical engineers that was pres
 <summary>Original task and the problems associated with it</summary>
 
   <br>
+
+  В процессе написания...
   
   Оригинальную задачу вы можете посмотреть [здесь](https://theranostic.sechenov.ru/caseheart)
   
