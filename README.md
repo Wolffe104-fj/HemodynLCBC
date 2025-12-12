@@ -81,8 +81,7 @@ I'm always open to communication and constructive criticism. If you have more ex
 
 
 <details>
-<summary>My decision and the results</summary>
-  ⚠️[Writing in progress]
+<summary>My decision and the results ⚠️[Writing in progress]⚠️</summary>
   
   <img align="right" width="55%"  alt="Figure_1 1" src="https://github.com/user-attachments/assets/815ddf18-dcda-4fdf-b81c-f1a054d41da7" />
   
