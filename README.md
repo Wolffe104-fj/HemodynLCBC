@@ -8,76 +8,73 @@ The project was inspired by a real-life task for medical engineers that was pres
 <summary>Original task and the problems associated with it</summary>
 
   <br>
-
-  В процессе написания...
   
-  Оригинальную задачу вы можете посмотреть [здесь](https://theranostic.sechenov.ru/caseheart)
-  
-  Тут я продублирую её текст на английском языке и расскажу какие трудности возникли при попытке её решения. Задача:
+  You can find the original task [here](https://theranostic.sechenov.ru/caseheart). Here, I will translate its text into English and explain what difficulties arose while trying to solve the task.
   
   <img align="right" width="35%" height="500" alt="OriginalTask_EN" src="https://github.com/user-attachments/assets/c4312afc-cf27-4dcb-a73d-0f69d3bffbf6" />
-  Для изучения процессов, происходящих в системе кровообращения, влияния имплантируемых медицинских устройств таких как искусственные клапаны сердца и аппараты вспомогательного кровообращения используются модели системы кровообращения. Модели позволяют персонализировано определить оптимальное состояние пациента и могут входить в систему поддержки принятия врачебных решений.
+  
+  Models of the circulatory system are used to study the processes occurring within the circulatory system and the effects of medical devices such as artificial heart valves and auxiliary circulation devices. These models allow for personalized determination of the optimal patient condition and can be integrated into medical decision support systems.
 
-Необходимо промоделировать большой круг кровообращения используя любой из программных пакетов (Matlab, Python, C++ и др). Система дифференциальных уравнений приставлена в приложении (формула (6)), для численного решения её необходимо преобразовать по методу Эйлера, обобщённому для систем дифференциальных уравнений. Параметры модели представлены в приложении (таблица 1).
+It is necessary to simulate the large circle of blood circulation using software packages such as Matlab, Python, or C++. The system of differential equations for this simulation is provided in the appendix, along with the Euler method for numerical solution. The model parameters can be found in the appendix table.
 
-В приложении представлены краткая теория и необходимые для моделирования формулы, параметры модели, вектор начальных значений для системы дифференциальных уравнений.
-Ответом на задачу является значение систолического давления в аорте для последнего цикла (округлить до целого значения).
+In the appendix, you will find a brief overview of the theory and formulas required for modeling, as well as the model parameters and initial values for the system of differential equations.
+
+The answer to the question is the value of the systolic pressure in the aorta during the last cycle, rounded to the nearest integer.
 
   <br>
   
-  Основное, с чем пришлось столкнуться - это отсутсвие материалов, которые нужны для решения задачи. 
-  Поэтому я сразу решил посмотреть её решение и пойти от обратного. Так я узнал примерные параметры модели:
+  The main challenge I faced was a lack of materials necessary to solve the task. Therefore, I decided to approach it from a different angle. I reviewed the current solution to the issue and used AI to gather relevant initial data. This process helped me determine the approximate initial parameters for the model:
 
-| Обозначение       | Значение | Ед. изм.               | Краткое описание                                |
-|       :---:       |   :---:  |  :---:                 |  :---                                           |
-| R1                | 1        | мм рт.ст. * с / мл     | Сопротивление участка сосудов (Между С2 и С3)   |
-| R2                | 0.005    | мм рт.ст. * с / мл     | Сопротивление митрального клапана               |
-| R3                | 0.013    | мм рт.ст. * с / мл     | Сопротивление аортального клапана               |
-| R4                | 0.0398   | мм рт.ст. * с / мл     | Периферическое сосудистое сопротивление         |
-| C2                | 4.4      | мл / мм рт.ст.         | Ёмкость первой артериальной камеры              |
-| C3                | 1.33     | мл / мм рт.ст.         | Ёмкость артериальной камеры                     |
-| C4                | 0.8      | мл / мм рт.ст.         | Ёмкость аорты                                   |
-| L                 | 0.0005   | мм рт.ст. * с**2 / мл  | Индуктивность (инерция потока крови)            |
-| dt                | 0.01     | с                      | Шаг интегрирования (метод Эйлера)               |
-| HR                | 75       | уд/мин                 | Частота сердечных сокращений                    |
-| Umax              | 2        | усл. ед.               | Максимальная эластичность желудочка             |
-| Umin⁡              | 0.05     | усл. ед.               | Минимальная эластичность желудочка              |
+| Notation          | Value    | Unit of Measure   | Brief Description                               |
+|       :---:       |   :---:  |  :---:            |  :---                                           |
+| R1                | 1        | mmHg * s / mL     | Vascular segment resistance (Between C2 and C3) |
+| R2                | 0.005    | mmHg * s / mL     | Mitral valve resistance                         |
+| R3                | 0.013    | mmHg * s / mL     | Aortic valve resistance                         |
+| R4                | 0.0398   | mmHg * s / mL     | Peripheral vascular resistance                  |
+| C2                | 4.4      | mL / mmHg         | Capacitance of the first arterial chamber       |
+| C3                | 1.33     | mL / mmHg         | Capacitance of the arterial chamber             |
+| C4                | 0.8      | mL / mmHg         | Aortic capacitance                              |
+| L                 | 0.0005   | mmHg * s**2 / mL  | Inductance (blood flow inertia)                 |
+| dt                | 0.01     | s                 | Integration step (Euler's method)               |
+| HR                | 75       | beats/min         | Heart rate                                      |
+| Umax              | 2        | conv. units       | Maximum ventricular elastance                   |
+| Umin⁡              | 0.05     | conv. units       | Minimum ventricular elastance                   |
 
-И вектор X
+And also, the X vector:
 
-| Обозначение      | Значение | Ед. изм.  | Краткое описание             |
-|  :---:           |  :---:   |  :---:    |  :---                        |
-| x1               | 8        | мм рт.ст. | Давление в желудочке         |
-| x2               | 7.3      | мм рт.ст. | Давление в предсердии        |
-| x3               | 70       | мм рт.ст. | Давление в артерии           |
-| x4               | 75       | мм рт.ст. | Давление в аорте             |
-| x5               | 20       | мл/с      | Скорость потока крови        |
+| Notation         | Value    | Unit of Measure | Brief Description     |
+|  :---:           |  :---:   |  :---:          |  :---                 |
+| x1               | 8        | mmHg            | Ventricular pressure  |
+| x2               | 7.3      | mmHg            | Atrial pressure       |
+| x3               | 70       | mmHg            | Arterial pressure     |
+| x4               | 75       | mmHg            | Aortic pressure       |
+| x5               | 20       | mL/s            | Blood flow velocity   |
 
-А также формулы. Компактная запись системы ОДУ для моделирования большого круга кровообращения:
+As well as formulas. Compact recording of the ODE system for modeling a large circle of blood circulation:
+<img width="60%" height="60%" alt="ODE_1" src="https://github.com/user-attachments/assets/85aafd8e-674e-4aa3-95bc-a23563cac3dd" />
+<img width="60%" height="60%" alt="ODE_2" src="https://github.com/user-attachments/assets/b1ab7974-5163-4802-8372-b71afe70406a" />
 
+Now you can use all of this to solve the task from the beginning. 
+If anything, I have tried to comment on my code as much as possible, so that you can understand it in case of any difficulties.
 
+### ⚠️ Important:
+1. Some of the comments and designations in this draft may be incorrect, as it was developed and studied independently, and I am not an expert in this field.
+2. This project cannot be used to address real-world medical issues, as it is a learning project and does not fully represent what happens in the human body.
 
-Теперь вы можете все это использовать, чтобы решить задачу с самого начала =)
-Если что, то я постарался максимально прокомментировать свой код, чтобы вы могли разобраться с ним в случае возникщих трудностей.
-
-### ⚠️ Важно:
-1. Некоторые комментарии и обозначения могут быть неверными, т.к. проект делался и изучался самостоятельно и я не являюсь экспертом в этой области.
-2. Этот проект нельзя использовать для решения реальных медицинских задач - это учебный проект и он не отражает в полной мере то, что происходит в организме человека.
-
-Я всегда открыт к разговору и рад общению с вами, поэтому если у вас есть какие-то правки и вы лучше меня в этом разбираетесь (являетесь экспертом) - просто напишите мне об ошибке. Нет такого человека, который знает все и помните: не ошибается только тот, кто ничего не делает.
+I'm always open to communication and constructive criticism. If you have more expertise on the subject — please just write to me about the mistake, I'd be very grateful. As the saying goes, he who makes no mistakes, makes nothing.
 
 <br>
 
-> P.S. Вот некоторые полезные материалы, которые помогли мне в решении задачи. Возможно и вам они смогут помочь:
+> P.S. Here are some useful materials that helped me complete the task. I hope they will be helpful to you too:
 >
 > P. I. Begun - Biomechanics (ISBN 5-7325-0309-5)
-> > Есть главы посвященные биомеханике сердца и сосудистой системы. Еще во время самостоятельного изучения биомеханики столкнулся с этим учебником - написан достаточно простым языком
+> > There are chapters on the biomechanics of the heart and the vascular system. Even during my self-study of biomechanics, I came across this book. It is written well and in a simple language.
 > 
 > B. I. Tkachenko - The basis of human physiology. A manual for the higher educational schools, in 2 volumes (ISBN 5-86050-055-6)
-> > Также есть главы посвященные вопросам гемодинамики. По большей части я использовал этот учебник уже для проверки того, что получилось у меня. В нем также есть полезные материалы для решения задачи.
+> > There are also chapters on hemodynamics. For the most part, I've already used this tutorial to test my work. It also contains useful materials for completing tasks.
 > 
 > L. Formaggia, A. Quarteroni, A. Veneziani Eds. - Cardiovascular mathematics. Modeling and simulation of the circulatory system (ISBN 978-88-470-1151-9)
-> > Книга максимально подходит к теме, т.к. её и описывает, но мне показалась тяжелой для чтения и понимания. Очень много формул. Тем не менее, тоже полезна и может вам она поможет больше, чем мне
+> > The book is very close to the topic, as it describes it in detail. However, it was difficult for me to read and understand. There are a lot of formulas involved. Nevertheless, the book is still useful and may be more helpful to you than it was to me.
 <br>
 </details>
 
@@ -85,7 +82,20 @@ The project was inspired by a real-life task for medical engineers that was pres
 
 <details>
 <summary>My decision and the results</summary>
+  ⚠️[Writing in progress]
+  
+  <img align="right" width="55%"  alt="Figure_1 1" src="https://github.com/user-attachments/assets/815ddf18-dcda-4fdf-b81c-f1a054d41da7" />
+  
+  <img align="left" width="55%" alt="Figure_2 1" src="https://github.com/user-attachments/assets/80fa45a4-75c6-41d3-b1fc-d6c42dc3bde8" />
+  
+  <img align="right" width="55%" alt="Figure_3 1" src="https://github.com/user-attachments/assets/4a9964cf-afd5-40b3-8fa9-d2e9d25988e2" />
+  
+  <img align="left" width="55%" alt="Figure_4 1" src="https://github.com/user-attachments/assets/50bcd109-db26-4fbb-8e20-9808f4648240" />
 
+<br>
+<br>
+
+<br>
 </details>
 
 ## 📌 Quick Start & Installation
