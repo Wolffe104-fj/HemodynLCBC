@@ -1,6 +1,9 @@
 # HemodynLCBC
+
 Pet-project that simulates the hemodynamics of the large circle of blood circulation. 
 The project was inspired by a real-life task for medical engineers that was presented on [the website of the Sechenov MSMU.](https://theranostic.sechenov.ru/caseheart)
+
+> This is a small pet-project, the essence of which was to try my hand at solving problems in biomedicine and to get a better understanding of hemodynamics. This project cannot be used to solve problems in real medicine, and it may contain factual errors and is not a verified and accurate solution to this problem, since the author (me) studied it independently and does not have expertise in this field.
 
 ## 📁 Content
 
@@ -8,20 +11,30 @@ The project was inspired by a real-life task for medical engineers that was pres
 <summary>Original task and the problems associated with it</summary>
 
   <br>
-  
+
+  <style>
+  img.right-list {
+    float: right;
+  }
+  img.left-list{
+    float: left;
+    margin-right: 20px; /* отступ справа, чтобы не было наложения */
+  }
+  </style>
+
   You can find the original task [here](https://theranostic.sechenov.ru/caseheart). Here, I will translate its text into English and explain what difficulties arose while trying to solve the task.
   
-  <img align="right" width="35%" height="500" alt="OriginalTask_EN" src="https://github.com/user-attachments/assets/c4312afc-cf27-4dcb-a73d-0f69d3bffbf6" />
+  <img class="right-list" width="35%" height="500" alt="OriginalTask_EN" src="results/OriginalTask_EN.png" />
   
-  Models of the circulatory system are used to study the processes occurring within the circulatory system and the effects of medical devices such as artificial heart valves and auxiliary circulation devices. These models allow for personalized determination of the optimal patient condition and can be integrated into medical decision support systems.
+  To study the processes occurring in the circulatory system and the effects of implantable medical devices such as artificial heart valves and ventricular assist devices, models of the circulatory system are used. The models make it possible to determine the optimal patient state in a personalized way and can be included in a clinical decision support system.
 
-It is necessary to simulate the large circle of blood circulation using software packages such as Matlab, Python, or C++. The system of differential equations for this simulation is provided in the appendix, along with the Euler method for numerical solution. The model parameters can be found in the appendix table.
+  It is necessary to simulate the systemic circulation using any of the software packages (Matlab, Python, C++, etc.). The system of differential equations is presented in the appendix (formula (6)); for its numerical solution, it must be transformed according to the Euler method, generalized for systems of differential equations. The model parameters are presented in the appendix (Table 1).
 
-In the appendix, you will find a brief overview of the theory and formulas required for modeling, as well as the model parameters and initial values for the system of differential equations.
+  The appendix presents brief theory and the formulas necessary for modeling, the model parameters, and the vector of initial values for the system of differential equations.
+  
+  The answer to the problem is the value of the systolic pressure in the aorta for the last cycle (rounded to an integer value).
 
-The answer to the question is the value of the systolic pressure in the aorta during the last cycle, rounded to the nearest integer.
-
-  <br>
+  <br clear="right">
   
   The main challenge I faced was a lack of materials necessary to solve the task. Therefore, I decided to approach it from a different angle. I reviewed the current solution to the issue and used AI to gather relevant initial data. This process helped me determine the approximate initial parameters for the model:
 
@@ -51,8 +64,28 @@ And also, the X vector:
 | x5               | 20       | mL/s            | Blood flow velocity   |
 
 As well as formulas. Compact recording of the ODE system for modeling a large circle of blood circulation:
-<img width="60%" height="60%" alt="ODE_1" src="https://github.com/user-attachments/assets/85aafd8e-674e-4aa3-95bc-a23563cac3dd" />
-<img width="60%" height="60%" alt="ODE_2" src="https://github.com/user-attachments/assets/b1ab7974-5163-4802-8372-b71afe70406a" />
+
+
+$$
+\begin{cases}
+
+\dot{x_1} = \left(h - \dfrac{U}{R_2}H_{21} - \dfrac{U}{R_3}H_{14} \right) x_1 + \dfrac{U}{R_2}H_{21}x_2 + \dfrac{U}{R_3}H_{14}x_4   \\
+
+\dot{x_2} = \dfrac{H_{21}}{R_2 C_2}x_1 - \left( \dfrac{1}{R_1 C_2} + \dfrac{H_{21}}{R_2 C_2} \right) x_2 + \dfrac{1}{R_1 C_2}x_3   \\
+
+\dot{x_3} = \dfrac{1}{R_1 C_3}x_2 - \dfrac{1}{R_1 C_3}x_3 + \dfrac{1}{C_3}x_5   \\
+
+\dot{x_4} = \dfrac{H_{14}}{R_3 C_4}x_1 - \left( \dfrac{H_{14}}{R_3 C_4} + \dfrac{1}{C_4} \right) x_4 - \dfrac{1}{C_4}x_5    \\
+
+\dot{x_5} = -\dfrac{1}{L}x_3 + \dfrac{1}{L}x_4 - \dfrac{R_4}{L}x_5
+
+\end{cases}
+$$
+
+
+$$
+H_{21} = heaviside(x_2 - x_1) , H_{14} = heaviside(x_1 - x_4) , h(t) = \frac{\dot{U}(t)}{U(t)} .
+$$
 
 Now you can use all of this to solve the task from the beginning. 
 If anything, I have tried to comment on my code as much as possible, so that you can understand it in case of any difficulties.
@@ -61,7 +94,7 @@ If anything, I have tried to comment on my code as much as possible, so that you
 1. Some of the comments and designations in this draft may be incorrect, as it was developed and studied independently, and I am not an expert in this field.
 2. This project cannot be used to address real-world medical issues, as it is a learning project and does not fully represent what happens in the human body.
 
-I'm always open to communication and constructive criticism. If you have more expertise on the subject — please just write to me about the mistake, I'd be very grateful. As the saying goes, he who makes no mistakes, makes nothing.
+I'm always open to communication and constructive criticism. If you have more expertise on the subject - please just write to me about the mistake, I'd be very grateful. As the saying goes, he who makes no mistakes, makes nothing.
 
 <br>
 
@@ -81,62 +114,111 @@ I'm always open to communication and constructive criticism. If you have more ex
 
 
 <details>
-<summary>My decision and the results ⚠️[Writing in progress]⚠️</summary>
+<summary>My decision and the results</summary>
   
-  <img align="right" width="55%"  alt="Figure_1 1" src="https://github.com/user-attachments/assets/815ddf18-dcda-4fdf-b81c-f1a054d41da7" />
-  
-  <img align="left" width="55%" alt="Figure_2 1" src="https://github.com/user-attachments/assets/80fa45a4-75c6-41d3-b1fc-d6c42dc3bde8" />
-  
-  <img align="right" width="55%" alt="Figure_3 1" src="https://github.com/user-attachments/assets/4a9964cf-afd5-40b3-8fa9-d2e9d25988e2" />
-  
-  <img align="left" width="55%" alt="Figure_4 1" src="https://github.com/user-attachments/assets/50bcd109-db26-4fbb-8e20-9808f4648240" />
+  <br>
 
-<br>
-<br>
+  <img class="right-list" width="55%"  alt="img1" src="results/img1.png" />
 
-<br>
+  - The shape of the graph (Fig. 1) is generally correct and corresponds to the classical [Tkachenko, Fig. 7.13], but there is no obvious dicrotic notch (rise) - this is a diagnostically significant element. Formally, there is a small bump that could be this notch, but it is insignificant, so we attribute all of this to the fact that the model is simplified.
+  - Pulse pressure of 27 mmHg is below the physiological norm (40-50). This indicates that the model either overestimates the diastolic pressure or underestimates the systolic pressure.
+  - As can be seen from the graph: **Aortic systolic pressure** = 112.6 mmHg, **Aortic diastolic pressure** = 85.7 mmHg.
+
+  <br clear="right">
+  
+  <img class="left-list" width="55%" alt="img2" src="results/img2.png" />
+  
+  - The elasticity curve (Fig. 2) has a characteristic two-phase shape with a peak E = 2.0 in the systole and a plateau in the diastole, which corresponds to the description of electromechanical coupling in the myocardium [Tkachenko, pp. 254-255, Fig. 7.10] and looks quite plausible.
+  - In reality, the elasticity curve has an asymmetry (steeper rise than decline), although it turned out to be almost symmetrical. But this is a valid simplification for the educational model.
+
+  <br clear="left">
+
+  <br>
+
+  <img class="right-list" width="55%" alt="img3" src="results/img3.png" />
+  
+  - The graph (Fig. 3) is the most indicative, the comparison of which with Fig. 7.11 of Tkachenko's textbook demonstrates a qualitative coincidence of the phase structure of the cardiac cycle:
+    - in systole, the pressure in the ventricle (red curve) increases sharply and exceeds the pressure in the aorta, which ensures the expulsion of blood;
+    - the pressure in the aorta (blue curve) reaches a peak with a delay relative to the ventricle, which reflects the inertia and elasticity of the main vessels;
+    - atrial pressure (yellow curve) remains low and increases smoothly towards the end of the diastole, reflecting venous return.
+  - Quantitatively, the model gives a peak pressure in the ventricle of ~115 mmHg, whereas normally it can be 110-150 mmHg.. According to Tkachenko, p. 256, during the rapid expulsion phase it can reach 200 mmHg in the left ventricle and during the slow expulsion phase it can be 130-140 mmHg.
+  - The pressure in the aorta is ~112 mmHg at its peak - the normal aortic systolic is 120-125 mmHg (p. 243), i.e. it is slightly underestimated.
+  - Diastolic blood pressure is 85.7 mmHg - normally 70-75 mmHg (p. 243). That is, our blood pressure is overestimated by ~10-15 mmHg, which is why the pulse pressure is only 27 mmHg (normally 40-50).
+  - There is no dicrotic rise at the catacroth of the aortic curve (Fig. 7.13, p. 261), which occurs when the semilunar valves close - in our case, the decline turned out to be monotonous.
+  - The atrial pressure hardly pulsates - Tkachenko's (Fig. 7.11) has clear waves, and our yellow line is almost straight.
+
+  <br clear="right">
+
+  <img class="left-list" width="55%" alt="img4" src="results/img4.png" />
+
+  - The curve of the volumetric blood flow velocity (Fig. 4) has an expected peak (~470 ml/s) in the phase of rapid expulsion followed by a decrease. However, in diastole, the flow is not zero, but remains at ~30 ml/s, which is physiologically incorrect, since with the aortic valve closed, there should be no flow. This discrepancy is related to the numerical implementation of the valve boundary conditions and needs to be improved.
+  - There is also no reverse current phase immediately after the valve is closed (incision), which is present in real physiology.
+
+  <br clear="left">
+
+---
+
+The obtained values in numerical:
+- **Aortic systolic pressure**: 112.6 mmHg
+- **Aortic diastolic pressure**: 85.7 mmHg
+- **Pulse pressure**: 27.0 mmHg
+- **Mean arterial pressure**: 100.475 mmHg
+
+---
+
+**Summary**:
+1. The implemented model accurately reproduces the phase structure of the cardiac cycle and the pressure ratios in various parts of the heart, which is confirmed by a comparison with Figure 7.11 in Tkachenko’s textbook.
+2. The quantitative indicators (systolic, diastolic, and pulse pressure) deviate from the physiological norm, which indicates the need to calibrate the parameters (aortic elasticity, myocardial contractility, peripheral resistance), but it should be understood that there were deviations in the initial data as well, so we can assume that the "patient" is ill. If we substitute values considered normal, the values will be "as per the textbook". *(The validity of the model is also confirmed by the fact that the answer matches what is given for the task, aortic systolic pressure should be ~113)*
+3. The model does not include a dicrotic rise in aortic pressure and zero diastolic flow through the aortic valve - these elements require a more detailed description of the valve apparatus and the elastic properties of the main vessels.
+4. Despite the specified simplifications, the model can be used as an educational tool to demonstrate qualitative hemodynamics and to understand the relationship between myocardial contractility, vascular elasticity, and the formation of blood pressure.
+
 </details>
 
-## 📌 Quick Start & Installation
-### 📋 Requirements
-All dependencies are pinned in requirements.txt:
-| Package         | Version     |
-| --------------- | ----------- |
-| numpy           | 2.3.5       |
-| matplotlib      | 3.10.7      |
-| scipy           | 1.16.3      |
-| contourpy       | 1.3.3       |
-| cycler          | 0.12.1      |
-| fonttools       | 4.61.0      |
-| kiwisolver      | 1.4.9       |
-| packaging       | 25.0        |
-| pillow          | 12.0.0      |
-| pyparsing       | 3.2.5       |
-| python-dateutil | 2.9.0.post0 |
-| six             | 1.17.0      |
+## Project structure
 
-### 🛠️ Installation
-1. Clone repository (All OS)
 ```
+HemodynLCBC/
+├── results/    # Graphs and output data
+├── main.py     # Main program
+├── .gitignore
+├── LICENSE
+├── requirements.txt
+└── README.md
+```
+
+## Model limitations
+
+- There is no dicrotic rise in aortic pressure;
+- The diastolic flow through the aortic valve is not equal to zero;
+- The quantitative indicators of blood pressure deviate slightly from the physiological norm.
+
+## 🛠️ Installation
+
+### 1. Clone repository
+```bash
 git clone https://github.com/Wolffe104-fj/HemodynLCBC.git
 cd HemodynLCBC
 ```
 
-2. Create & activate virtual environment
-```
-python -m venv venv
+### 2. Create & activate virtual environment
+```bash
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1     # Windows (PowerShell)
+source .venv/bin/activate        # Linux / macOS
 ```
 
-| Windows               | Linux/macOS              |
-| --------------------- | ------------------------ |
-| venv\\Scripts\\activate | source venv/bin/activate |
-
-3. Install dependencies (All OS)
-```
+### 3. Install dependencies
+```bash
 pip install -r requirements.txt
 ```
 
-4. Run simulation (All OS)
-```
+## Usage
+
+### Run simulation
+```bash
 python main.py
 ```
+
+## License
+
+The code in this repository is distributed under the MIT license - see the LICENSE file.

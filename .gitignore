@@ -1,21 +1,34 @@
-### >>> PYTHON <<< ###
-# Виртуальные окружения
+### ===== Project Data ===== ###
+
+# Raw / processed datasets / other files
+files/
+*.pdf
+*.pptx
+*.mp4
+*.mkv
+*.zip
+
+### ===== Python Environments ===== ###
+
 .venv/
 venv/
 env/
 ENV/
 env.bak/
 venv.bak/
+.python-version
 
-# Кэш и скомпилированные файлы Python
+### ===== Python Bytecode & Cache ===== ###
+
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 *.py.cover
 *.so
-.python-version
 
-# Пакеты и дистрибутивы (папки сборки, яйца, wheel'ы)
+### ===== Python Build Artifacts ===== ###
+
 build/
 dist/
 *.egg-info/
@@ -27,40 +40,54 @@ share/python-wheels/
 *.manifest
 *.spec
 
-# Кэш инструментов и логи установки
-.cache
+### ===== Python Tool Caches ===== ###
+
+.cache/
 .pytest_cache/
 .mypy_cache/
 .dmypy.json
 dmypy.json
 .pytype/
+.ruff_cache/
+.coverage
+htmlcov/
 pip-log.txt
 pip-delete-this-directory.txt
 .spyderproject
 .spyproject
 
-### >>> СЛУЖЕБНЫЕ ФАЙЛЫ PYCHARM <<< ###
+### ===== Jupyter ===== ###
+
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+### ===== IDE ===== ###
+
 .idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
 *.iml
 *.ipr
 .ropeproject
 
-### >>> ФАЙЛЫ ПРОЕКТОВ И БАЗ ДАННЫХ <<< ###
+### ===== Databases ===== ###
+
 *.sqlite
 *.sqlite3
 db.sqlite3
 db.sqlite3-journal
 
-# Файлы журналов и локальных настроек
+### ===== Logs & Local Settings ===== ###
+
 *.log
 local_settings.py
-
-# Инстанс Flask
 instance/
 .webassets-cache
 
-### >>> КОНФИДЕНЦИАЛЬНОСТЬ <<< ###
-# Файлы с паролями, ключами и переменными окружения
+### ===== Secrets ===== ###
+
 .env
 .envrc
 .secrets
@@ -69,7 +96,9 @@ config_local.yaml
 .pypirc
 .streamlit/secrets.toml
 
-### >>> СИСТЕМНЫЕ ФАЙЛЫ <<< ###
+### ===== OS Files ===== ###
+
+.DS_Store
 Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
