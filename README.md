@@ -55,23 +55,23 @@ And also, the X vector:
 
 As well as formulas. Compact recording of the ODE system for modeling a large circle of blood circulation:
 
-
 $$
-\begin{cases}
+\left\{
+\begin{array}{l}
 
-\dot{x_1} = \left(h - \dfrac{U}{R_2}H_{21} - \dfrac{U}{R_3}H_{14} \right) x_1 + \dfrac{U}{R_2}H_{21}x_2 + \dfrac{U}{R_3}H_{14}x_4   \\
+\dot{x_1} = \left(h - \dfrac{U}{R_2}H_{21} - \dfrac{U}{R_3}H_{14} \right) x_1 + \dfrac{U}{R_2}H_{21}x_2 + \dfrac{U}{R_3}H_{14}x_4 \\
 
-\dot{x_2} = \dfrac{H_{21}}{R_2 C_2}x_1 - \left( \dfrac{1}{R_1 C_2} + \dfrac{H_{21}}{R_2 C_2} \right) x_2 + \dfrac{1}{R_1 C_2}x_3   \\
+\dot{x_2} = \dfrac{H_{21}}{R_2 C_2}x_1 - \left( \dfrac{1}{R_1 C_2} + \dfrac{H_{21}}{R_2 C_2} \right) x_2 + \dfrac{1}{R_1 C_2}x_3 \\
 
-\dot{x_3} = \dfrac{1}{R_1 C_3}x_2 - \dfrac{1}{R_1 C_3}x_3 + \dfrac{1}{C_3}x_5   \\
+\dot{x_3} = \dfrac{1}{R_1 C_3}x_2 - \dfrac{1}{R_1 C_3}x_3 + \dfrac{1}{C_3}x_5 \\
 
-\dot{x_4} = \dfrac{H_{14}}{R_3 C_4}x_1 - \left( \dfrac{H_{14}}{R_3 C_4} + \dfrac{1}{C_4} \right) x_4 - \dfrac{1}{C_4}x_5    \\
+\dot{x_4} = \dfrac{H_{14}}{R_3 C_4}x_1 - \left( \dfrac{H_{14}}{R_3 C_4} + \dfrac{1}{C_4} \right) x_4 - \dfrac{1}{C_4}x_5 \\
 
 \dot{x_5} = -\dfrac{1}{L}x_3 + \dfrac{1}{L}x_4 - \dfrac{R_4}{L}x_5
 
-\end{cases}
+\end{array}
+\right.
 $$
-
 
 $$
 H_{21} = heaviside(x_2 - x_1) , H_{14} = heaviside(x_1 - x_4) , h(t) = \frac{\dot{U}(t)}{U(t)} .
