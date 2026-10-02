@@ -12,19 +12,9 @@ The project was inspired by a real-life task for medical engineers that was pres
 
   <br>
 
-  <style>
-  img.right-list {
-    float: right;
-  }
-  img.left-list{
-    float: left;
-    margin-right: 20px; /* отступ справа, чтобы не было наложения */
-  }
-  </style>
-
   You can find the original task [here](https://theranostic.sechenov.ru/caseheart). Here, I will translate its text into English and explain what difficulties arose while trying to solve the task.
   
-  <img class="right-list" width="35%" height="500" alt="OriginalTask_EN" src="results/OriginalTask_EN.png" />
+  <img align="right" width="35%" height="500" alt="OriginalTask_EN" src="results/OriginalTask_EN.png" />
   
   To study the processes occurring in the circulatory system and the effects of implantable medical devices such as artificial heart valves and ventricular assist devices, models of the circulatory system are used. The models make it possible to determine the optimal patient state in a personalized way and can be included in a clinical decision support system.
 
@@ -118,7 +108,7 @@ I'm always open to communication and constructive criticism. If you have more ex
   
   <br>
 
-  <img class="right-list" width="55%"  alt="img1" src="results/img1.png" />
+  <img align="right" width="55%"  alt="img1" src="results/img1.png" />
 
   - The shape of the graph (Fig. 1) is generally correct and corresponds to the classical [Tkachenko, Fig. 7.13], but there is no obvious dicrotic notch (rise) - this is a diagnostically significant element. Formally, there is a small bump that could be this notch, but it is insignificant, so we attribute all of this to the fact that the model is simplified.
   - Pulse pressure of 27 mmHg is below the physiological norm (40-50). This indicates that the model either overestimates the diastolic pressure or underestimates the systolic pressure.
@@ -126,7 +116,7 @@ I'm always open to communication and constructive criticism. If you have more ex
 
   <br clear="right">
   
-  <img class="left-list" width="55%" alt="img2" src="results/img2.png" />
+  <img align="left" width="55%" alt="img2" src="results/img2.png" />
   
   - The elasticity curve (Fig. 2) has a characteristic two-phase shape with a peak E = 2.0 in the systole and a plateau in the diastole, which corresponds to the description of electromechanical coupling in the myocardium [Tkachenko, pp. 254-255, Fig. 7.10] and looks quite plausible.
   - In reality, the elasticity curve has an asymmetry (steeper rise than decline), although it turned out to be almost symmetrical. But this is a valid simplification for the educational model.
@@ -135,7 +125,7 @@ I'm always open to communication and constructive criticism. If you have more ex
 
   <br>
 
-  <img class="right-list" width="55%" alt="img3" src="results/img3.png" />
+  <img align="right" width="55%" alt="img3" src="results/img3.png" />
   
   - The graph (Fig. 3) is the most indicative, the comparison of which with Fig. 7.11 of Tkachenko's textbook demonstrates a qualitative coincidence of the phase structure of the cardiac cycle:
     - in systole, the pressure in the ventricle (red curve) increases sharply and exceeds the pressure in the aorta, which ensures the expulsion of blood;
@@ -149,7 +139,7 @@ I'm always open to communication and constructive criticism. If you have more ex
 
   <br clear="right">
 
-  <img class="left-list" width="55%" alt="img4" src="results/img4.png" />
+  <img align="left" width="55%" alt="img4" src="results/img4.png" />
 
   - The curve of the volumetric blood flow velocity (Fig. 4) has an expected peak (~470 ml/s) in the phase of rapid expulsion followed by a decrease. However, in diastole, the flow is not zero, but remains at ~30 ml/s, which is physiologically incorrect, since with the aortic valve closed, there should be no flow. This discrepancy is related to the numerical implementation of the valve boundary conditions and needs to be improved.
   - There is also no reverse current phase immediately after the valve is closed (incision), which is present in real physiology.
